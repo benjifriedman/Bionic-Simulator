@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>Bionic Simulator</title>
+    <meta
+      name="description"
+      content="Quick Simulator of this Bionic Reading idea. By Benji Friedman. (if this is copyright infringement btw lmk and I'll take it down)"
+    />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <style>
+      * {
+        font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+        text-align: left;
+        line-height: 1.2;
+      }
+      p {
+        font-size: 1.3rem;
+      }
+
+      .bold {
+        font-weight: bold;
+      }
+      .container {
+        padding-left: 15px;
+        max-width: 750px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>Bionic Simulator</h1>
+      <input type="text" id="input" placeholder="Enter text" /><button
+        onclick="run()"
+      >
+        run
+      </button>
+      <p id="results"></p>
+    </div>
+    <script>
+      function run() {
+        var input = document.getElementById("input").value;
+        var split = input.split(" ");
+        var paragraphHTML = "";
+
+        for (var i = 0; i < split.length; i++) {
+          var word = split[i];
+          console.log(word);
+
+          if (word[0]) {
+            var length = word.length;
+            var wordStart,
+              wordEnd = "";
+
+            var wordHTML = "";
+
+            if (length == 1) {
+              wordStart = "<span class='bold'>" + word[0] + "</span>";
+              wordEnd = "";
+            }
+
+            if (length == 2) {
+              wordStart = "<span class='bold'>" + word[0] + "</span>";
+              wordEnd = word[length - 1];
+            }
+
+            if (length == 3) {
+              wordStart = "<span class='bold'>" + word[0] + word[1] + "</span>";
+              wordEnd = word[length - 1];
+            }
+
+            if (length == 4) {
+              wordStart = "<span class='bold'>" + word[0] + word[1] + "</span>";
+              wordEnd = word[length - 2] + word[length - 1];
+            }
+
+            if (length == 5) {
+              wordStart =
+                "<span class='bold'>" + word[0] + word[1] + word[2] + "</span>";
+              wordEnd = word[length - 2] + word[length - 1];
+            }
+
+            if (length == 6) {
+              wordStart =
+                "<span class='bold'>" + word[0] + word[1] + word[2] + "</span>";
+              wordEnd = word[length - 3] + word[length - 2] + word[length - 1];
+            }
+
+            if (length > 6) {
+              //it's even
+              var firstHalf = word.slice(0, length / 2);
+              var SlicePoint = length / 2;
+              var secondHalf = word.slice(SlicePoint, length);
+
+              wordStart = "<span class='bold'>" + firstHalf + "</span>";
+              wordEnd = secondHalf;
+            }
+          }
+
+          wordHTML = wordStart + wordEnd;
+
+          paragraphHTML += wordHTML + " ";
+        } //end for
+
+        var resultP = document.querySelector("#results");
+        resultP.innerHTML = paragraphHTML;
+      }
+    </script>
+  </body>
+</html>
